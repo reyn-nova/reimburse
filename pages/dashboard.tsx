@@ -1,9 +1,16 @@
 import { useRouter } from "next/router";
 
 import DashboardListItem from "@/components/dashboard_list_item";
+import { useEffect } from "react";
 
 const DashboardPage = () => {
   const router = useRouter();
+
+  useEffect(() => {
+    if (localStorage.getItem("userData") === null) {
+      router.replace("/login");
+    }
+  }, []);
 
   return (
     <div

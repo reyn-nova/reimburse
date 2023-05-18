@@ -2,9 +2,16 @@ import { useRouter } from "next/router";
 
 import CustomButton from "@/components/custom_button";
 import CustomInput from "@/components/custom_input";
+import { useEffect } from "react";
 
 const AllocationPage = () => {
   const router = useRouter();
+
+  useEffect(() => {
+    if (localStorage.getItem("userData") === null) {
+      router.replace("/login");
+    }
+  }, []);
 
   return (
     <div

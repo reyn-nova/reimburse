@@ -2,9 +2,22 @@ import { useRouter } from "next/router";
 
 import CustomButton from "@/components/custom_button";
 import ReimburseListItem from "@/components/reimburse_list_item";
+import { useEffect } from "react";
 
 const HomePage = () => {
   const router = useRouter();
+
+  useEffect(() => {
+    if (localStorage.getItem("userData") === null) {
+      router.replace("/login");
+    }
+  }, []);
+
+  const logout = () => {
+    localStorage.removeItem("userData");
+
+    router.replace("/login");
+  };
 
   return (
     <div
@@ -87,7 +100,12 @@ const HomePage = () => {
             paddingTop: 40,
           }}
         >
-          <CustomButton label="Logout" backgroundColor="red" width={300} />
+          <CustomButton
+            label="Logout"
+            backgroundColor="red"
+            width={300}
+            onClick={logout}
+          />
 
           <div
             style={{
