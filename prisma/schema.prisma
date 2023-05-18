@@ -7,15 +7,27 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Project {
-  id    Int     @id @default(autoincrement())
-  name  String?
-  notes Note[]
+model User {
+  id Int     @id @default(autoincrement())
+  name String
+  password String
+  role String
+  nominal_alokasi Int
 }
 
-model Note {
-  id        Int      @id @default(autoincrement())
-  value     String?
-  projectId Int?
-  project   Project? @relation(fields: [projectId], references: [id])
+model Reimburse {
+  id_reimburse Int     @id @default(autoincrement())
+  keterangan String
+  id_user Int
+  judul String
+  bukti_foto String
+  tanggal String
+}
+
+model ReviewReimburse {
+  id_review_reimburse Int @id @default(autoincrement())
+  id_reimburse Int
+  id_reviewer Int
+  komentar String
+  status_persetujuan String
 }

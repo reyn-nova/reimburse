@@ -36,7 +36,7 @@ const DashboardListItem = ({
           marginTop: 5,
         }}
       >
-        <div>Rp. {usedAllocation.toLocaleString()}</div>
+        <div>Rp. {usedAllocation}</div>
 
         <div
           style={{
@@ -46,7 +46,7 @@ const DashboardListItem = ({
           {"/"}
         </div>
 
-        <div>Rp. {allocation.toLocaleString()} Terpakai</div>
+        <div>Rp. {allocation} Terpakai</div>
       </div>
     </a>
   );

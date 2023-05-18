@@ -79,7 +79,7 @@ const ReimburseListItem = ({
             fontWeight: "bold",
           }}
         >
-          Rp. {nominal.toLocaleString()}
+          Rp. {nominal}
         </div>
 
         <div

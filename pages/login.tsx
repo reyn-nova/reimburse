@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 import CustomButton from "@/components/custom_button";
@@ -5,6 +6,50 @@ import CustomInput from "@/components/custom_input";
 
 const LoginPage = () => {
   const router = useRouter();
+  const [name, setName] = useState<String>("");
+  const [password, setPassword] = useState<String>("");
+
+  useEffect(() => {
+    if (localStorage.getItem("userData")) {
+      router.replace("/");
+    }
+  }, []);
+
+  const login = () => {
+    fetch("api/user", {
+      body: JSON.stringify({
+        name,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+    })
+      .then((res) => res.json())
+      .then((resJSON) => {
+        const { user } = resJSON;
+
+        if (user) {
+          if (password === user.password) {
+            alert(resJSON.message);
+
+            localStorage.setItem(
+              "userData",
+              JSON.stringify({
+                ...user,
+                password: undefined,
+              })
+            );
+
+            router.replace("/");
+          } else {
+            alert("Wrong password");
+          }
+        } else {
+          alert(resJSON.message);
+        }
+      });
+  };
 
   return (
     <div
@@ -43,17 +88,18 @@ const LoginPage = () => {
           justifyContent: "center",
         }}
       >
-        <CustomInput placeholder="Username" width={300} />
+        <CustomInput placeholder="Name" width={300} onChangeText={setName} />
 
         <CustomInput
           placeholder="Password"
           type="password"
           width={300}
           margin="20px 0px 0px 0px"
+          onChangeText={setPassword}
         />
 
         <CustomButton
-          onClick={() => router.replace("/")}
+          onClick={login}
           label="Login"
           width={300}
           margin="40px 0px 0px 0px"

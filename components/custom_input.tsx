@@ -6,6 +6,7 @@ type CustomInputComponentType = {
   width?: string | number;
   margin?: string | number;
   isDisabled?: boolean;
+  onChangeText?: (value: String) => void;
 };
 
 const CustomInput = ({
@@ -16,6 +17,7 @@ const CustomInput = ({
   independentPlaceholder,
   value,
   isDisabled,
+  onChangeText,
 }: CustomInputComponentType) => {
   return (
     <div
@@ -48,6 +50,11 @@ const CustomInput = ({
         <input
           placeholder={!independentPlaceholder ? placeholder : ""}
           type={type}
+          onChange={(e) => {
+            if (onChangeText) {
+              onChangeText(e.currentTarget.value);
+            }
+          }}
           style={{
             width,
             color: "black",
