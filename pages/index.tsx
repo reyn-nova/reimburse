@@ -1,15 +1,27 @@
+import Link from "next/link";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 import CustomButton from "@/components/custom_button";
 import ReimburseListItem from "@/components/reimburse_list_item";
-import { useEffect } from "react";
 
 const HomePage = () => {
   const router = useRouter();
 
+  const [user, setUser] = useState<any>(null);
+  const [list, setList] = useState<any[]>([]);
+
   useEffect(() => {
-    if (localStorage.getItem("userData") === null) {
+    const userData = localStorage.getItem("userData");
+
+    if (userData === null) {
       router.replace("/login");
+    } else {
+      fetch("api/reimburse")
+        .then((res) => res.json())
+        .then((resJSON) => setList(resJSON.data));
+
+      setUser(JSON.parse(userData));
     }
   }, []);
 
@@ -36,6 +48,7 @@ const HomePage = () => {
           display: "flex",
           justifyContent: "center",
           paddingTop: 40,
+          position: "relative",
         }}
       >
         <h1
@@ -46,18 +59,21 @@ const HomePage = () => {
           Reimburse
         </h1>
 
-        <a
-          style={{
-            fontSize: 32,
-            fontWeight: "bold",
-            color: "black",
-            position: "absolute",
-            right: 40,
-            top: 40,
-          }}
-        >
-          +
-        </a>
+        {user?.role === "User" ? (
+          <Link
+            href="/reimburse-detail"
+            style={{
+              fontSize: 32,
+              fontWeight: "bold",
+              color: "black",
+              position: "absolute",
+              right: 40,
+              top: 40,
+            }}
+          >
+            +
+          </Link>
+        ) : null}
       </div>
 
       <div
@@ -75,21 +91,23 @@ const HomePage = () => {
             flexGrow: 1,
           }}
         >
-          <ReimburseListItem
-            title="Lampu Kantor"
-            subtitle="Pembelian lampu kantor sebanyak 3 buah"
-            nominal={75000}
-            status="Belum Disetujui"
-            date={new Date()}
-          />
-
-          <ReimburseListItem
-            title="Sapu Kantor"
-            subtitle="Pembelian sapu kantor sebanyak 1 buah"
-            nominal={55000}
-            status="Disetujui"
-            date={new Date()}
-          />
+          {list.map((item) => {
+            return (
+              <ReimburseListItem
+                onClick={() =>
+                  router.push(
+                    `/reimburse-detail?id_reimburse=${item.id_reimburse}`
+                  )
+                }
+                key={item.id_reimburse}
+                title={item.judul}
+                subtitle={item.keterangan}
+                nominal={item.nominal}
+                status={item.status}
+                date={new Date(item.tanggal)}
+              />
+            );
+          })}
         </div>
 
         <div
@@ -107,17 +125,19 @@ const HomePage = () => {
             onClick={logout}
           />
 
-          <div
-            style={{
-              marginTop: 20,
-            }}
-          >
-            <CustomButton
-              label="Lihat Dashboard"
-              backgroundColor="deepskyblue"
-              width={300}
-            />
-          </div>
+          {user?.role === "Management" ? (
+            <div
+              style={{
+                marginTop: 20,
+              }}
+            >
+              <CustomButton
+                label="Lihat Dashboard"
+                backgroundColor="deepskyblue"
+                width={300}
+              />
+            </div>
+          ) : null}
         </div>
       </div>
     </div>

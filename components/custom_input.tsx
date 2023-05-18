@@ -1,7 +1,7 @@
 type CustomInputComponentType = {
   placeholder: string;
   independentPlaceholder?: boolean;
-  value?: string;
+  value?: String | number;
   type?: string;
   width?: string | number;
   margin?: string | number;
@@ -55,6 +55,7 @@ const CustomInput = ({
               onChangeText(e.currentTarget.value);
             }
           }}
+          value={value?.toString()}
           style={{
             width,
             color: "black",

@@ -1,7 +1,7 @@
+import { useEffect } from "react";
 import { useRouter } from "next/router";
 
 import DashboardListItem from "@/components/dashboard_list_item";
-import { useEffect } from "react";
 
 const DashboardPage = () => {
   const router = useRouter();

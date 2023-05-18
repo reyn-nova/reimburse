@@ -21,13 +21,9 @@ model Reimburse {
   id_user Int
   judul String
   bukti_foto String
-  tanggal String
-}
-
-model ReviewReimburse {
-  id_review_reimburse Int @id @default(autoincrement())
-  id_reimburse Int
-  id_reviewer Int
-  komentar String
-  status_persetujuan String
+  tanggal DateTime @default(now())
+  nominal Int
+  status String
+  komentar String?
+  id_reviewer Int?
 }

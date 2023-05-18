@@ -88,11 +88,17 @@ const LoginPage = () => {
           justifyContent: "center",
         }}
       >
-        <CustomInput placeholder="Name" width={300} onChangeText={setName} />
+        <CustomInput
+          placeholder="Name"
+          value={name}
+          width={300}
+          onChangeText={setName}
+        />
 
         <CustomInput
           placeholder="Password"
           type="password"
+          value={password}
           width={300}
           margin="20px 0px 0px 0px"
           onChangeText={setPassword}

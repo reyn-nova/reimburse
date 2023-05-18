@@ -1,8 +1,8 @@
+import { useEffect } from "react";
 import { useRouter } from "next/router";
 
 import CustomButton from "@/components/custom_button";
 import CustomInput from "@/components/custom_input";
-import { useEffect } from "react";
 
 const AllocationPage = () => {
   const router = useRouter();
