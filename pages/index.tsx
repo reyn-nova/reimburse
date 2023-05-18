@@ -132,6 +132,7 @@ const HomePage = () => {
               }}
             >
               <CustomButton
+                onClick={() => router.push("/dashboard")}
                 label="Lihat Dashboard"
                 backgroundColor="deepskyblue"
                 width={300}

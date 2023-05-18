@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 import DashboardListItem from "@/components/dashboard_list_item";
@@ -6,9 +6,15 @@ import DashboardListItem from "@/components/dashboard_list_item";
 const DashboardPage = () => {
   const router = useRouter();
 
+  const [users, setUsers] = useState<any[]>([]);
+
   useEffect(() => {
     if (localStorage.getItem("userData") === null) {
       router.replace("/login");
+    } else {
+      fetch("/api/user")
+        .then((res) => res.json())
+        .then((resJSON) => setUsers(resJSON.users));
     }
   }, []);
 
@@ -57,11 +63,17 @@ const DashboardPage = () => {
             paddingBottom: 40,
           }}
         >
-          <DashboardListItem
-            name="Diki"
-            usedAllocation={25000}
-            allocation={75000}
-          />
+          {users.map((user) => {
+            return (
+              <DashboardListItem
+                onClick={() => router.push(`/allocation?id_user=${user.id}`)}
+                key={user.id}
+                name={user.name}
+                usedAllocation={user.alokasi_terpakai}
+                allocation={user.nominal_alokasi}
+              />
+            );
+          })}
         </div>
       </div>
     </div>

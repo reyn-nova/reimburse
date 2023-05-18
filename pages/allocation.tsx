@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 import CustomButton from "@/components/custom_button";
@@ -7,11 +7,36 @@ import CustomInput from "@/components/custom_input";
 const AllocationPage = () => {
   const router = useRouter();
 
+  const [selectedUser, setSelectedUser] = useState<any>();
+  const [allocation, setAllocation] = useState(0);
+
   useEffect(() => {
     if (localStorage.getItem("userData") === null) {
       router.replace("/login");
+    } else {
+      fetch(`/api/user?id_user=${router.query.id_user}`)
+        .then((res) => res.json())
+        .then((resJSON) => {
+          setAllocation(resJSON.user.nominal_alokasi);
+          setSelectedUser(resJSON.user);
+        });
     }
   }, []);
+
+  const updateAllocation = () => {
+    fetch("/api/user", {
+      body: JSON.stringify({
+        id_user: selectedUser.id,
+        nominal_alokasi: allocation,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "PUT",
+    })
+      .then((res) => res.json())
+      .then((resJSON) => alert(resJSON.message));
+  };
 
   return (
     <div
@@ -37,7 +62,7 @@ const AllocationPage = () => {
             color: "black",
           }}
         >
-          Diki
+          {selectedUser?.name}
         </h1>
       </div>
 
@@ -58,9 +83,11 @@ const AllocationPage = () => {
         >
           <CustomInput
             placeholder="Nominal Alokasi"
+            value={allocation}
             width={300}
             independentPlaceholder
             margin="40px 0px 0px 0px"
+            onChangeText={(value) => setAllocation(Number(value))}
           />
         </div>
 
@@ -73,6 +100,7 @@ const AllocationPage = () => {
           }}
         >
           <CustomButton
+            onClick={updateAllocation}
             label="Perbarui"
             width={300}
             margin="20px 0px 0px 0px"
