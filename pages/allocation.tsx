@@ -41,70 +41,80 @@ const AllocationPage = () => {
   return (
     <div
       style={{
-        backgroundColor: "gainsboro",
         display: "flex",
+        height: "100vh",
+        width: "100vw",
+        alignItems: "center",
         flexDirection: "column",
-        height: "100%",
-        minHeight: "100vh",
-        maxWidth: 600,
-        width: "100%",
       }}
     >
       <div
         style={{
+          backgroundColor: "gainsboro",
           display: "flex",
-          justifyContent: "center",
-          paddingTop: 40,
-        }}
-      >
-        <h1
-          style={{
-            color: "black",
-          }}
-        >
-          {selectedUser?.name}
-        </h1>
-      </div>
-
-      <div
-        style={{
-          alignItems: "center",
-          display: "flex",
-          flex: 1,
           flexDirection: "column",
+          height: "100%",
+          minHeight: "100vh",
+          maxWidth: 600,
+          width: "100%",
         }}
       >
         <div
           style={{
             display: "flex",
-            flexDirection: "column",
-            flexGrow: 1,
+            justifyContent: "center",
+            paddingTop: 40,
           }}
         >
-          <CustomInput
-            placeholder="Nominal Alokasi"
-            value={allocation}
-            width={300}
-            independentPlaceholder
-            margin="40px 0px 0px 0px"
-            onChangeText={(value) => setAllocation(Number(value))}
-          />
+          <h1
+            style={{
+              color: "black",
+            }}
+          >
+            {selectedUser?.name}
+          </h1>
         </div>
 
         <div
           style={{
-            alignSelf: "center",
+            alignItems: "center",
             display: "flex",
+            flex: 1,
             flexDirection: "column",
-            margin: "20px 0px 40px 0px",
           }}
         >
-          <CustomButton
-            onClick={updateAllocation}
-            label="Perbarui"
-            width={300}
-            margin="20px 0px 0px 0px"
-          />
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              flexGrow: 1,
+            }}
+          >
+            <CustomInput
+              placeholder="Nominal Alokasi"
+              value={allocation}
+              width={300}
+              independentPlaceholder
+              margin="40px 0px 0px 0px"
+              onChangeText={(value) => setAllocation(Number(value))}
+            />
+          </div>
+
+          <div
+            style={{
+              alignSelf: "center",
+              display: "flex",
+              flexDirection: "column",
+              margin: "20px 0px 40px 0px",
+            }}
+          >
+            <CustomButton
+              onClick={updateAllocation}
+              label="Perbarui"
+              width={300}
+              margin="20px 0px 0px 0px"
+            />
+          </div>
         </div>
       </div>
     </div>

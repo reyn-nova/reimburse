@@ -54,84 +54,94 @@ const LoginPage = () => {
   return (
     <div
       style={{
-        backgroundColor: "gainsboro",
         display: "flex",
+        height: "100vh",
+        width: "100vw",
+        alignItems: "center",
         flexDirection: "column",
-        height: "100%",
-        minHeight: "100vh",
-        maxWidth: 600,
-        width: "100%",
       }}
     >
       <div
         style={{
+          backgroundColor: "gainsboro",
           display: "flex",
-          justifyContent: "center",
-          paddingTop: 40,
-        }}
-      >
-        <h1
-          style={{
-            color: "black",
-          }}
-        >
-          Reimburse
-        </h1>
-      </div>
-
-      <div
-        style={{
-          alignItems: "center",
-          display: "flex",
-          flex: 1,
           flexDirection: "column",
-          justifyContent: "center",
+          height: "100%",
+          minHeight: "100vh",
+          maxWidth: 600,
+          width: "100%",
         }}
       >
-        <CustomInput
-          placeholder="Name"
-          value={name}
-          width={300}
-          onChangeText={setName}
-        />
-
-        <CustomInput
-          placeholder="Password"
-          type="password"
-          value={password}
-          width={300}
-          margin="20px 0px 0px 0px"
-          onChangeText={setPassword}
-        />
-
-        <CustomButton
-          onClick={login}
-          label="Login"
-          width={300}
-          margin="40px 0px 0px 0px"
-        />
-      </div>
-
-      <div
-        style={{
-          alignItems: "center",
-          color: "black",
-          display: "flex",
-          justifyContent: "center",
-          padding: 20,
-        }}
-      >
-        Belum punya akun?
-        <a
+        <div
           style={{
-            color: "navy",
-            fontWeight: "bold",
-            marginLeft: 5,
+            display: "flex",
+            justifyContent: "center",
+            paddingTop: 40,
           }}
-          href="mailto:rynvva@gmail.com"
         >
-          Hubungi admin
-        </a>
+          <h1
+            style={{
+              color: "black",
+            }}
+          >
+            Reimburse
+          </h1>
+        </div>
+
+        <div
+          style={{
+            alignItems: "center",
+            display: "flex",
+            flex: 1,
+            flexDirection: "column",
+            justifyContent: "center",
+          }}
+        >
+          <CustomInput
+            placeholder="Name"
+            value={name}
+            width={300}
+            onChangeText={setName}
+          />
+
+          <CustomInput
+            placeholder="Password"
+            type="password"
+            value={password}
+            width={300}
+            margin="20px 0px 0px 0px"
+            onChangeText={setPassword}
+          />
+
+          <CustomButton
+            onClick={login}
+            label="Login"
+            width={300}
+            margin="40px 0px 0px 0px"
+          />
+        </div>
+
+        <div
+          style={{
+            alignItems: "center",
+            color: "black",
+            display: "flex",
+            justifyContent: "center",
+            padding: 20,
+          }}
+        >
+          Belum punya akun?
+          <a
+            style={{
+              color: "navy",
+              fontWeight: "bold",
+              marginLeft: 5,
+            }}
+            href="mailto:rynvva@gmail.com"
+          >
+            Hubungi admin
+          </a>
+        </div>
       </div>
     </div>
   );
